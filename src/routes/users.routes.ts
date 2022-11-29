@@ -6,5 +6,5 @@ import { userCreateSchema } from "../schema/user.schema"
 
 export const userRouter = Router()
 
-userRouter.post("/signup",validateSchemaMiddleware(userCreateSchema),signUpController)
-userRouter.post("/signin",signInController)
+userRouter.post("/register",validateSchemaMiddleware(userCreateSchema),signUpController)
+userRouter.post("/login",signInController)

@@ -1,19 +1,14 @@
 import { Request, Response } from "express";
-import { prisma } from "../../app";
-import { ErrorHandler, handleError } from "../../helpers/error.helper";
-import { createTaskService } from "../../services/tasks/createTask.controller";
+import { createTaskService } from "../../services/tasks/createTask.service";
 
 export const createTaskController = async (req: Request, res: Response) => {
   try {
-    const param = req.params;
-    const decoded = req.decoded;
+    const user = req.decoded
 
-    const data = await createTaskService();
+    const data = await createTaskService(req.body,user);
 
-    return res.status(200).json(data);
+    return res.status(201).json(data);
   } catch (err) {
-    if (err instanceof ErrorHandler) {
-      return handleError(err, res);
-    }
+    return res.status(400).json({ message: err.message });
   }
 };

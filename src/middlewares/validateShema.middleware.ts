@@ -12,6 +12,6 @@ export const validateSchemaMiddleware = (shape:AnySchema) =>
 
             return next()
         }catch(err){
-            return res.status(400).json({message:err.message})
+            return res.status(400).json({message:err.errors})
         }
     }

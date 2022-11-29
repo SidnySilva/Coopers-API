@@ -1,16 +1,15 @@
-import { Request,Response } from "express";
-import { ErrorHandler,handleError} from "../../helpers/error.helper";
-import { deleteTasksService } from "../../services/tasks/deleteTask.controller";
+import { Request, Response } from "express";
+import { deleteTasksService } from "../../services/tasks/deleteTask.service";
 
-export const deleteTasksController = async (req: Request, res:Response) =>{
-    try {
+export const deleteTasksController = async (req: Request, res: Response) => {
+  try {
+    const decoded = req.decoded;
+    const id = req.params.id;
 
-        const cashOut = await deleteTasksService();
+    const task = await deleteTasksService(id, decoded);
 
-        return res.status(200).json(cashOut)
-    } catch (err) {
-        if(err instanceof ErrorHandler){
-            return handleError(err,res)
-        }
-    }
-}
+    return res.status(204).json(task);
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
