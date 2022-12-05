@@ -6,7 +6,7 @@ export const userCreateSchema = yup.object().shape({
     email:yup.string().email("type a valid e-mail, ex: user@email.com.").required("Email is necessary."),
     password:yup.string().required("Password is necessary").matches(
         /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/,
-        "Password: Minimun 8 characters;At least a number;At least an uppercase letter;At least a lowercase letter;A special character",
+        "Password: Minimun 8 characters; At least a number; At least an uppercase letter; At least a lowercase letter; A special character",
       ),
     confirmPassword:yup.string().oneOf([yup.ref("password"),null], "Different passwords").required("You need to confirm your password"),
 })

@@ -3,7 +3,7 @@ import { signInService } from "../../services/users/userSignIn.service";
 
 export const signInController = async (req: Request, res: Response) => {
   try {
-    const token = await signInService(res, req.body);
+    const token = await signInService(req.body);
 
     return res.status(200).json({ token });
   } catch (err) {

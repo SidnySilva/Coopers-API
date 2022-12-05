@@ -1,5 +1,5 @@
-import { prisma } from "../../app"
+import { prisma } from "../../app";
 
-export const getMessageService = async() =>{
-    return await prisma.getInTouch.findMany()
-}
+export const getMessageService = async () => {
+  return await prisma.getInTouch.findMany();
+};

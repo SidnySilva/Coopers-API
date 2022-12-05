@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
-import { deleteTasksService } from "../../services/tasks/deleteTask.service";
+import {  deleteTasksService } from "../../services/tasks/deleteTask.service";
 
 export const deleteTasksController = async (req: Request, res: Response) => {
   try {
-    const decoded = req.decoded;
-    const id = req.params.id;
+    const data = { id: req.params.id, decoded: req.decoded };
 
-    const task = await deleteTasksService(id, decoded);
+   await deleteTasksService(data);
 
-    return res.status(204).json(task);
+    return res.status(204).json();
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }

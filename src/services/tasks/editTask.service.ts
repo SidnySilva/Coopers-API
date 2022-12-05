@@ -1,27 +1,29 @@
-import { prisma } from "../../app";
 import AppError from "../../helpers/error.helper";
+import { prisma } from "../../app";
 import { IAuth } from "../../interfaces";
 
+export const editTasksService = async ({ id, decoded }: IAuth, data: any) => {
+  const user = await prisma.user.findUnique({
+    where: { email: decoded.email },
+  });
 
-export const editTasksService = async (id,decoded,data) =>{
+  const task = await prisma.tasks.findUnique({ where: { id: id } });
 
-    const user = await prisma.user.findUnique({where:{email:decoded.email}})
+  if (!task) {
+    throw new AppError("Task not found", 404);
+  }
 
-    const task = await prisma.tasks.findUnique({where:{id:id}})
+  if (user.id !== task.userId) {
+    throw new AppError("would you like the others to mess up your stuff?", 203);
+  }
 
-    if(!task){
-        throw new AppError("Task not found",404)
-    }
+  const editedTask = await prisma.tasks.update({
+    where: { id: id },
+    data: {
+      done: data.done,
+      description: data.description,
+    },
+  });
 
-    if(user.id !== task.userId){
-        throw new AppError("would you like the others to mess up your stuff?",203)
-    }
-
-    const editedTask = await prisma.tasks.update({where:{id:id},data:{
-        done:data.done,
-        description:data.description
-    }})
-    
-    return editedTask
-
-}
+  return editedTask;
+};

@@ -1,20 +1,17 @@
 import { prisma } from "../../app";
-import AppError from "../../helpers/error.helper";
+import { User } from "@prisma/client";
 
-export const createTaskService = async ({description},decoded) => {
+export const createTaskService = async ({description}:any, decoded:Partial<User>) => {
+  const user = await prisma.user.findUnique({
+    where: { email: decoded.email },
+  });
 
-    const user = await prisma.user.findUnique({where:{email:decoded.email}})
+  const newTask = await prisma.tasks.create({
+    data: {
+      description: description,
+      userId: user.id,
+    },
+  });
 
-    const task = await prisma.tasks.findFirst({where:{description:description}})
-
-    if(task){
-        throw new AppError( "This task already exists",400)
-    }
-
-    const newTask = await prisma.tasks.create({data:{
-        description:description,
-        userId:user.id
-    }})
-
-    return newTask
+  return newTask;
 };

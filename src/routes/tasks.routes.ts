@@ -12,4 +12,4 @@ export const taskRouter = Router();
 taskRouter.get("/", validateToken, getTasksController);
 taskRouter.post("/create", validateToken ,validateSchemaMiddleware(taskCreateSchema), createTaskController);
 taskRouter.patch("/edit/:id", validateToken,validateSchemaMiddleware(taskUpdateSchema), editTasksController);
-taskRouter.delete("/delete/:id", validateToken, deleteTasksController);
+taskRouter.delete("/delete/:id?", validateToken, deleteTasksController);
