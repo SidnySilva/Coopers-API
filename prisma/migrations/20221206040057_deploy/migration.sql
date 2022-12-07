@@ -11,7 +11,7 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "tasks" (
     "id" TEXT NOT NULL,
-    "done" BOOLEAN NOT NULL DEFAULT false,
+    "done" BOOLEAN DEFAULT false,
     "description" TEXT NOT NULL,
     "userId" TEXT,
 
@@ -24,7 +24,7 @@ CREATE TABLE "get_in_touch" (
     "username" TEXT,
     "email" TEXT NOT NULL,
     "telephone" TEXT NOT NULL,
-    "Message" VARCHAR(500) NOT NULL,
+    "message" VARCHAR(500) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "get_in_touch_pkey" PRIMARY KEY ("id")
