@@ -12,11 +12,11 @@ export const signUpService = async ({
   const user = await prisma.user.findUnique({ where: { email: email } });
 
   if (user) {
-    throw new AppError("User already exists!", 401);
+    throw new AppError("User already exists!", 400);
   }
 
   if (password !== confirmPassword) {
-    throw new AppError("Different password!", 401);
+    throw new AppError("Different password!", 403);
   }
 
   const hashPassword = bcrypt.hashSync(password, 10);

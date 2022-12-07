@@ -8,11 +8,11 @@ export const signInService = async ({ email, password }: Iuser) => {
   const user = await prisma.user.findUnique({ where: { email: email } });
 
   if (!user) {
-    throw new AppError("Wrong user or password!", 401);
+    throw new AppError("Wrong user or password!", 400);
   }
 
   if (!bcrypt.compareSync(password, user.password)) {
-    throw new AppError("Wrong user or password!", 401);
+    throw new AppError("Wrong user or password!", 400);
   }
 
   const token = jwt.sign({ email: email }, String(process.env.SECRET), {

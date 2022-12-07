@@ -5,7 +5,7 @@ export const signUpController = async (req: Request, res: Response) => {
   try {
     const user = await signUpService(req.body);
 
-    return res.status(200).json({ message: user });
+    return res.status(201).json({ message: user });
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }

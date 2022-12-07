@@ -5,7 +5,7 @@ export const signInController = async (req: Request, res: Response) => {
   try {
     const token = await signInService(req.body);
 
-    return res.status(201).json({ token });
+    return res.status(200).json({ token });
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }
